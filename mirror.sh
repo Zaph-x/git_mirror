@@ -1,10 +1,14 @@
 #!/bin/bash
+cd "$(dirname $0)"
 
-REPO_DIR='/path/to/your/repo/' # Must be postfixed with '/'
+REPO_DIR="/path/to/repository/directory/"
 BASE_DIR=$(pwd)
 
-ORIGIN_HASH=$(git --git-dir="$REPO_DIR".git rev-parse origin/master)
-MIRROR_HASH=$(cat last_commit)
+echo "$BASE_DIR"
+cd $REPO_DIR
+git fetch origin master 
+ORIGIN_HASH=$(git rev-parse origin/master)
+MIRROR_HASH=$(cat "$BASE_DIR/last_commit")
 if [ "$ORIGIN_HASH" == "$MIRROR_HASH" ]; then
 	echo "SAME"
 else
